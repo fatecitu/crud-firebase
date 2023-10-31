@@ -12,12 +12,13 @@ function getCEP(cep, callback){
         if('cep' in data){
             let result = data
             let endereco = `${result.street}, ${result.neighborhood}, ${result.city}-${result.state}`
-            callback(null, endereco)
+            let geo = [result.location.coordinates.latitude, result.location.coordinates.longitude]
+            callback(null, endereco, geo)
         } else {
-            callback('Não foi possível obter o cep', null)
+            callback('Não foi possível obter o cep', null, null)
         }
     })
     .catch(error =>{
-        callback(error, null)
+        callback(error, null, null)
     })
 }
